@@ -53,9 +53,13 @@ def printer(intro_line):
     for i in range (0,len(intro_line)):
         if i >= 6:
             stdscr.addstr(y,x, intro_line[i])
+            stdscr.refresh()
+            time.sleep(2)
             y += 1
         else :
             stdscr.addstr(y,x, intro_line[i], curses.color_pair(2))
+            stdscr.refresh()
+            time.sleep(2)
             y += 1
     while True:
         s_or_q = stdscr.getkey()
