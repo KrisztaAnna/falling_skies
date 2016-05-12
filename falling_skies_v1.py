@@ -43,25 +43,45 @@ new_level = 10
 level = 1
 
 
-############################## INTRO #########################################
-def intro():
-    intro_line1 = "POLLUTION AND WARS HAVE DESTROYED OUR PLANET."
-    intro_line2 = "THE LAST REMAINING MEMBERS OF HUMANITY"
-    intro_line3 = "HAVE TO FACE DEADLY ACID RAINS"
-    intro_line4 = "FALLING FROM THE POISONOUS SKY."
-    intro_line5 = "HELP PEOPLE ESCAPE FROM THE RAIN BY"
-    intro_line6 = "PRESSING THE SAME LETTER THAT YOU SEE IN THE RAINDROPS!"
-    intro_line7 = "Press 'S' to start"
-    intro_line8 = "Press 'Q' to exit the game"
 
-    stdscr.addstr(6, int(max_x/7), intro_line1, curses.color_pair(2))
-    stdscr.addstr(7, int(max_x/7), intro_line2, curses.color_pair(2))
-    stdscr.addstr(8, int(max_x/7), intro_line3, curses.color_pair(2))
-    stdscr.addstr(9, int(max_x/7), intro_line4, curses.color_pair(2))
-    stdscr.addstr(10,int(max_x/7), intro_line5, curses.color_pair(2))
-    stdscr.addstr(11, int(max_x/7), intro_line6, curses.color_pair(2))
-    stdscr.addstr(14, int(max_x/7), intro_line7)
-    stdscr.addstr(15, int(max_x/7), intro_line8)
+############################## INTRO #########################################
+
+
+def printer(intro_line):
+    y = 6
+    x = int(max_x/7)
+    for i in range (0,len(intro_line)):
+        if i >= 6:
+            stdscr.addstr(y,x, intro_line[i])
+            y += 1
+        else :
+            stdscr.addstr(y,x, intro_line[i], curses.color_pair(2))
+            y += 1
+    while True:
+        s_or_q = stdscr.getkey()
+
+        if s_or_q == "s":
+            stdscr.erase()
+            stdscr.refresh()
+            stdscr.nodelay(1)
+            break
+        elif s_or_q == "q":
+            curses.endwin()
+            quit()
+
+
+def intro():
+    intro_line = ["POLLUTION AND WARS HAVE DESTROYED OUR PLANET.",
+     "THE LAST REMAINING MEMBERS OF HUMANITY",
+     "HAVE TO FACE DEADLY ACID RAINS",
+     "FALLING FROM THE POISONOUS SKY.",
+     "HELP PEOPLE ESCAPE FROM THE RAIN BY",
+     "PRESSING THE SAME LETTER THAT YOU SEE IN THE RAINDROPS!",
+     "Press 'S' to start",
+     "Press 'Q' to exit the game"]
+
+    printer(intro_line)
+
     stdscr.chgat(14, (int(max_x/7)+6), 1, curses.color_pair(2))
     stdscr.chgat(14, (int(max_x/7)+7), 1, curses.color_pair(2))
     stdscr.chgat(14, (int(max_x/7)+8), 1, curses.color_pair(2))
@@ -69,15 +89,7 @@ def intro():
     stdscr.chgat(15, (int(max_x/7)+7), 1, curses.color_pair(1))
     stdscr.chgat(15, (int(max_x/7)+8), 1, curses.color_pair(1))
 
-    s_or_q = stdscr.getkey()
 
-    if s_or_q == "s":
-        stdscr.erase()
-        stdscr.refresh()
-        stdscr.nodelay(1)
-    elif s_or_q == "q":
-        curses.endwin()
-        quit()
 
 
 ############################# ENVIRONMENT #####################################
@@ -123,7 +135,7 @@ def main():
         fall()
         time.sleep(difficulty)
         key = stdscr.getch()
-#        clear()
+
 ### if keystroke is correct resets the falling letter and updates the score ###
         if key == ord(chosen_one):
              y_fall= 5
