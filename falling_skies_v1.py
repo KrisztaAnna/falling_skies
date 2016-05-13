@@ -86,7 +86,7 @@ def intro():
 
     printer(intro_line)
 
-    
+
 
 
 
@@ -95,8 +95,9 @@ def intro():
 def environment():
 #Score, life, level
     stdscr.addstr(1, 1, 'SCORE: ✎ %s' %(score), curses.color_pair(3))
-    stdscr.addstr(1, int(max_x/2),'LIFE: ♥ %s' %(life), curses.color_pair(3))
-    stdscr.addstr(1, int(max_x/4),'LEVEL: ⚔ %s' %(level), curses.color_pair(3))
+    stdscr.addstr(1, 20,'LIFE: ♥ %s' %(life), curses.color_pair(3))
+    stdscr.addstr(1, 40,'LEVEL: ⚔ %s' %(level), curses.color_pair(3))
+    stdscr.addstr(1, 60, "Press 'Esc' to exit", curses.color_pair(3))
 #Sky, ground
     stdscr.addstr(3, 1, rain, curses.color_pair(4))
     stdscr.addstr(max_y - 3, 1, earth, curses.color_pair(2))
@@ -117,7 +118,7 @@ def fall():
 
 def main():
     running = True
-    while running:
+    while running :
         global score
         global life
         global difficulty
@@ -133,6 +134,7 @@ def main():
         fall()
         time.sleep(difficulty)
         key = stdscr.getch()
+        #stdscr.erase()
 
 ### if keystroke is correct resets the falling letter and updates the score ###
         if key == ord(chosen_one):
@@ -141,6 +143,10 @@ def main():
              chosen_one = string_list[random.randint(0,25)]
              stdscr.erase()
              score += 1
+
+## press ESC to end the game ################################################
+        if key == ord('\x1b'):
+            break
 #### level up and difficulty behaviour #######################################
         if score == new_level:
             new_level += 10
@@ -166,7 +172,7 @@ def main():
         stdscr.addstr(int(max_y/2),int(max_x/2-10),"PRESS 'Q' TO QUIT",  curses.color_pair(1))
         stdscr.addstr(int(max_y/2)+5,int(max_x/2-12),"PRESS 'R' TO RESTART", curses.color_pair(2) )
         key = stdscr.getch()
-        stdscr.timeout(-1)
+        #stdscr.timeout(-1)
         if key == ord("q"):
             break
         if key == ord("r"):
