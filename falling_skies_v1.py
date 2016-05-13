@@ -46,7 +46,7 @@ level = 1
 
 ############################## INTRO #########################################
 
-
+#### prints the intro line by line with associated colore scheme ##############
 def printer(intro_line):
     y = 6
     x = int(max_x/7)
@@ -86,13 +86,7 @@ def intro():
 
     printer(intro_line)
 
-    stdscr.chgat(14, (int(max_x/7)+6), 1, curses.color_pair(2))
-    stdscr.chgat(14, (int(max_x/7)+7), 1, curses.color_pair(2))
-    stdscr.chgat(14, (int(max_x/7)+8), 1, curses.color_pair(2))
-    stdscr.chgat(15, (int(max_x/7)+6), 1, curses.color_pair(1))
-    stdscr.chgat(15, (int(max_x/7)+7), 1, curses.color_pair(1))
-    stdscr.chgat(15, (int(max_x/7)+8), 1, curses.color_pair(1))
-
+    
 
 
 
