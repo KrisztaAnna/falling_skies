@@ -103,6 +103,14 @@ intro()
 
 
 
+##### Environment:
+# stdscr.addstr(1, 1, 'SCORE: ✎ %s' %(score), curses.color_pair(3))
+# stdscr.addstr(1, 20,'LIFE: ♥ %s' %(life), curses.color_pair(3))
+# stdscr.addstr(1, 40,'LEVEL: ⚔ %s' %(level), curses.color_pair(3))
+# stdscr.addstr(1, 60, "Press 'Esc' to exit", curses.color_pair(3))
+
+
+
 
 curses.echo() #usually apps turn off automatic echoing of keys. But .echo turns it back on
 stdscr.getch()
