@@ -31,6 +31,7 @@ max_y, max_x = stdscr.getmaxyx()
 
 string_list = "abcdefghijklmnopqrstuvwxyz"
 chosen_one = string_list[random.randint(1, 25)]
+possible_letters = [ord(i) for i in string_list]
 
 x_fall = random.randint(12, max_x - 10)
 y_fall = 5
@@ -135,17 +136,29 @@ def main():
         key = stdscr.getch()
         # stdscr.erase()
 
-# if keystroke is correct resets the falling letter and updates the score ###
-        if key == ord(chosen_one):
-            y_fall = 5
-            x_fall = random.randint(12, max_x - 10)
-            chosen_one = string_list[random.randint(0, 25)]
-            stdscr.erase()
-            score += 1
+
+# if keystroke is correct resets the falling letter and updates the score
+# if keystroke is not correct, score decreases by 1 and in case of negative score
+# player loses 1 life
+
+        if key in possible_letters:
+            if key == ord(chosen_one):
+                y_fall = 5
+                x_fall = random.randint(12, max_x - 10)
+                chosen_one = string_list[random.randint(0, 25)]
+                stdscr.erase()
+                score += 1
+            else:
+                score -= 1
+                if score < 0:
+                    life -= 1
+
 
 # press ESC to end the game ###################################################
+
         if key == ord('\x1b'):
             break
+
 # level up and difficulty behaviour ###########################################
         if score == new_level:
             new_level += 10
@@ -155,9 +168,7 @@ def main():
             new_level += 15
             difficulty -= 0.005
             level += 1
-# if a drop hits the grouquery =
-# 'user=pilgrim&database=master&password=PapayaWhip'nd life decreases and
-# resets the falling letter ##
+# if a drop hits the ground resets the falling letter ##
         if y_fall == max_y - 3:
             y_fall = 5
             x_fall = random.randint(12, max_x - 10)
