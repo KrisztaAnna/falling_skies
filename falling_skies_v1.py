@@ -57,12 +57,12 @@ def printer(intro_line):
         if i >= 6:
             stdscr.addstr(y, x, intro_line[i])
             stdscr.refresh()
-            time.sleep(2)
+            time.sleep(0.5)
             y += 1
         else:
             stdscr.addstr(y, x, intro_line[i], curses.color_pair(2))
             stdscr.refresh()
-            time.sleep(2)
+            time.sleep(0.5)
             y += 1
     while True:
         s_or_q = stdscr.getkey()
@@ -70,7 +70,6 @@ def printer(intro_line):
         if s_or_q == "s":
             stdscr.erase()
             stdscr.refresh()
-            stdscr.nodelay(1)
             break
         elif s_or_q == "q":
             curses.endwin()
@@ -84,13 +83,45 @@ def intro():
                   "FALLING FROM THE POISONOUS SKY.",
                   "HELP PEOPLE ESCAPE FROM THE RAIN BY",
                   "PRESSING THE SAME LETTER THAT YOU SEE IN THE RAINDROPS!",
-                  "Press 'S' to start",
+                  "Press 'S' to choose difficulty",
                   "Press 'Q' to exit the game"]
 
     printer(intro_line)
 
 
+def start():
+    stdscr.erase()
+    stdscr.refresh()
+    stdscr.nodelay(1)
+
+
+# allows to choose the difficulty level at the beginning of the game
+
+def choose_diff():
+    y = math.floor(max_y/2)-6
+    global difficulty
+    x = math.floor(max_x/2)-14
+    stdscr.addstr(y, x, "CHOOSE A DIFFICULITY LEVEL: ", curses.color_pair(2))
+    stdscr.addstr(y+2, x, "    EASY:   'E'", curses.color_pair(2))
+    stdscr.addstr(y+3, x, "    NORMAL: 'N'", curses.color_pair(2))
+    stdscr.addstr(y+4, x, "    HARD:   'H'", curses.color_pair(2))
+    while True:
+        key = stdscr.getch()
+        if key == ord('e'):
+            difficulty = 0.6
+            start()
+            break
+        elif key == ord('n'):
+            difficulty = 0.4
+            start()
+            break
+        elif key == ord('h'):
+            difficulty = 0.2
+            start()
+            break
+
 # ENVIRONMENT #################################################################
+
 
 def environment():
     # Score, life, level
@@ -208,7 +239,10 @@ def main():
             life = 3
             score = 0
             difficulty = 0.4
+            stdscr.erase()
+            choose_diff()
             main()
     curses.endwin()
 intro()
+choose_diff()
 main()
