@@ -44,6 +44,7 @@ score = 0
 difficulty = 0.4
 new_level = 10
 level = 1
+new_life = 5
 
 
 # INTRO #######################################################################
@@ -129,6 +130,7 @@ def main():
         global x_fall
         global new_level
         global level
+        global new_life
         stdscr.nodelay(1)
         environment()
         fall()
@@ -138,8 +140,8 @@ def main():
 
 
 # if keystroke is correct resets the falling letter and updates the score
-# if keystroke is not correct, score decreases by 1 and in case of negative score
-# player loses 1 life
+# if keystroke is not correct, score decreases by 1 and
+# in case of negative score player loses 1 life
 
         if key in possible_letters:
             if key == ord(chosen_one):
@@ -175,6 +177,13 @@ def main():
             chosen_one = string_list[random.randint(0, 25)]
             stdscr.erase()
             life -= 1
+
+# life increases by one in every 5 level
+
+        if level == new_life:
+            new_life += 5
+            life += 1
+
 # if you die you can choose to quit or restart ################################
         if life == 0:
             running = False
